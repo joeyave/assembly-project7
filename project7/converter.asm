@@ -2,10 +2,12 @@
 
 .data
     szCmpi PROTO :DWORD,:DWORD,:DWORD
+    StrLen PROTO :DWORD
 
     days_of_the_week db "sunday   monday   tuesday  wednesdaythursday friday   saturday "
+    months db "march    april    may      june     july     august   septemberoctober  november december january  february "
     nine dd 9
-
+    input_len dw ?
 .code
 ; Выполняет одну из двух функций:
 ;   1. Переводит номер месяца в его название.
@@ -35,13 +37,15 @@ converter proc
 
     ; тут происходит перевод названия в число.
     .elseif eax == 2
-        mov ebx, 0
+        mov ebx, 1
 
         mov esi, [ebp+12]
-        mov edi, offset days_of_the_week
+        invoke StrLen, esi
+        mov input_len, ax
+        mov edi, offset months
         .while eax == eax
             ; Эта функция сравнивает две строки и записывает 0 в eax, если они равны.
-            invoke szCmpi, esi, edi, nine
+            invoke szCmpi, esi, edi, input_len
             .if !eax
                 mov esi, [ebp+16]
                 mov [esi], ebx

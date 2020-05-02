@@ -1,0 +1,128 @@
++
+input day: (1-30(31) or 1-28 if february)
+2
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+may
+input year (2020, 0851, 0041 and so on):
+2020
+saturday
+
+
++
+input day: (1-30(31) or 1-28 if february)
+4
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+july
+input year (2020, 0851, 0041 and so on):
+1986
+friday
+
+
++
+input day: (1-30(31) or 1-28 if february)
+11
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+may
+input year (2020, 0851, 0041 and so on):
+1958
+sunday
+
+
+-
+input day: (1-30(31) or 1-28 if february)
+1
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+january
+input year (2020, 0851, 0041 and so on):
+2020
+friday
+
+
++
+input day: (1-30(31) or 1-28 if february)
+1
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+march
+input year (2020, 0851, 0041 and so on):
+1920
+monday
+
+
++
+input day: (1-30(31) or 1-28 if february)
+3
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+april
+input year (2020, 0851, 0041 and so on):
+2020
+friday
+
+
++
+input day: (1-30(31) or 1-28 if february)
+4
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+april
+input year (2020, 0851, 0041 and so on):
+2020
+saturday
+
+
++
+input day: (1-30(31) or 1-28 if february)
+5
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+april
+input year (2020, 0851, 0041 and so on):
+2020
+sunday
+
+
++
+input day: (1-30(31) or 1-28 if february)
+7
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+april
+input year (2020, 0851, 0041 and so on):
+2020
+tuesday
+
+
++
+input day: (1-30(31) or 1-28 if february)
+30
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+april
+input year (2020, 0851, 0041 and so on):
+2020
+thursday
+
+
++
+input day: (1-30(31) or 1-28 if february)
+11
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+may
+input year (2020, 0851, 0041 and so on):
+2020
+monday
+
+
++
+input day: (1-30(31) or 1-28 if february)
+4
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+july
+input year (2020, 0851, 0041 and so on):
+2020
+saturday
+
+
+-
+input day: (1-30(31) or 1-28 if february)
+1
+input month: (january, february, march, april, may, june, july, august, september, october, november, december)
+january
+input year (2020, 0851, 0041 and so on):
+2120
+wednesday

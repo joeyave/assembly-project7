@@ -12,38 +12,60 @@ include converter.inc
     input_data proto msg:ptr dword
     day_of_week proto, day:dword, month:dword, year:dword, century:dword
 
-    day_message db "input day:", 10, 13, 0
-    month_message db "input month:", 10, 13, 0
-    year_message db "input year:", 10, 13, 0
-    century_message db "input century:", 10, 13, 0
+    day_message db "input day: (1-30(31) or 1-28 if february)", 10, 13, 0
+    month_message db "input month: (january, february, march, april, may, june, july, august, september, october, november, december)", 10, 13, 0
+    year_message db "input year (2020, 0851, 0041 and so on):", 10, 13, 0
     new_line_message db 10, 13, 0
 
     day dw ?
     month dw ?
+    month_string db 9 dup(?)
+    buffer db 128 dup(?)
     year dw ?
     century dw ?
 
     result dd ?
 
+    year_string db 128 dup(0)
 .code
 main proc
     .while eax == eax
         ; Ввод данных.
-        invoke input_data, addr day_message
+        invoke StdOut, addr day_message
+        invoke StdIn, addr buffer, lengthof buffer
+        invoke atodw, addr buffer
         mov day, ax
 
-        invoke input_data, addr month_message
-        sub ax, 2
-        test ax, ax
-        jns not_signed
-            add ax, 12
-        not_signed:
-        mov month, ax
+        invoke StdOut, addr month_message
+        invoke StdIn, addr month_string, lengthof month_string
 
-        invoke input_data, addr year_message
-        mov year, ax
-        invoke input_data, addr century_message
+        push offset month
+        push offset month_string
+        mov eax, 2
+        push eax
+        invoke converter
+
+        invoke StdOut, addr year_message
+        invoke StdIn, addr year_string, lengthof year_string
+
+        lea esi, year_string
+        lea edi, buffer
+        mov ecx, 2
+        rep movsb
+        mov ax, 0
+        mov [edi], ax
+
+        invoke atodw, addr buffer
         mov century, ax
+
+        lea edi, buffer
+        mov ecx, 2
+        rep movsb
+        mov ax, 0
+        mov [edi], ax
+
+        invoke atodw, addr buffer
+        mov year, ax
 
         ; Перевод номера месяца в название.
         invoke day_of_week, day, month, year, century
@@ -63,20 +85,6 @@ main proc
     .endw
 invoke ExitProcess, 0
 main endp
-
-; Выводит запрос, который передан в качесве параметра, на консоль.
-; Возвращает:
-;   eax - число.
-input_data proc msg_var:ptr dword
-    .data 
-    buff dw 128 dup(?)
-
-    .code
-    invoke StdOut, msg_var
-    invoke StdIn, addr buff, lengthof buff
-    invoke atodw, addr buff
-    ret
-input_data endp
 
 ; Определяет день недели, где 0 - воскресенье, ..., 7 - суббота.
 ; Месяца начинаются с марта, то есть 0 - март, ..., 12 - февраль.
@@ -125,12 +133,19 @@ day_of_week proc, day_var:dword, month_var:dword, year_var:dword, century_var:dw
     sub ecx, eax
 
     ; ([(26 * Mouth - 2) / 10] + Day + Year + [Century / 4] - 2 * C) mod 7
-    xor edx, edx
     mov eax, ecx
-    test eax, eax
-    jns not_signed
-    neg eax
-    not_signed:
+
+    cmp eax, 0
+    jge positive
+    negative:
+    add eax, 7
+    cmp eax, 0
+    jl negative
+    mov edx, eax
+    ret
+
+    positive:
+    xor edx, edx
     mov ecx, 7
     div ecx
     ret
