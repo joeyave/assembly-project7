@@ -1,9 +1,0 @@
-input day:9
-
-input month:3
-
-input year:125
-
-input century:11
-
-friday   

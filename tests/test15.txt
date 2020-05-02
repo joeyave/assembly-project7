@@ -1,8 +1,0 @@
-input day:8
-
-input month:3
-
-input year:
-1020
-input century:11
-monday   
