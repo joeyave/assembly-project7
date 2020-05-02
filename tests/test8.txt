@@ -1,0 +1,9 @@
+input day:8
+
+input month:3
+
+input year:
+988
+input century:
+10
+friday   

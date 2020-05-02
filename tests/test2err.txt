@@ -1,0 +1,13 @@
+input day:
+
+1
+input month:
+2
+
+input year:
+2020
+
+input century:
+
+21
+"Прекращена работа программы"

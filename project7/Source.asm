@@ -16,6 +16,7 @@ include converter.inc
     month_message db "input month:", 10, 13, 0
     year_message db "input year:", 10, 13, 0
     century_message db "input century:", 10, 13, 0
+    new_line_message db 10, 13, 0
 
     day dw ?
     month dw ?
@@ -26,30 +27,40 @@ include converter.inc
 
 .code
 main proc
-    ; Ввод данных.
-    invoke input_data, addr day_message
-    mov day, ax
-    invoke input_data, addr month_message
-    mov month, ax
-    invoke input_data, addr year_message
-    mov year, ax
-    invoke input_data, addr century_message
-    mov century, ax
+    .while eax == eax
+        ; Ввод данных.
+        invoke input_data, addr day_message
+        mov day, ax
 
-    ; Перевод номера месяца в название.
-    invoke day_of_week, day, month, year, century
+        invoke input_data, addr month_message
+        sub ax, 2
+        test ax, ax
+        jns not_signed
+            add ax, 12
+        not_signed:
+        mov month, ax
+
+        invoke input_data, addr year_message
+        mov year, ax
+        invoke input_data, addr century_message
+        mov century, ax
+
+        ; Перевод номера месяца в название.
+        invoke day_of_week, day, month, year, century
    
-    ; Передача параметров через стек. 
-    ; Переменная result будет использованна для сохранения результата работы процедуры.
-    push offset result
-    push edx
-    ; Выбор режима работы (из номера в название).
-    mov eax, 1
-    push eax
-    invoke converter
+        ; Передача параметров через стек. 
+        ; Переменная result будет использованна для сохранения результата работы процедуры.
+        push offset result
+        push edx
+        ; Выбор режима работы (из номера в название).
+        mov eax, 1
+        push eax
+        invoke converter
 
-    invoke StdOut, addr result
-
+        invoke StdOut, addr result
+        invoke StdOut, addr new_line_message
+        invoke StdOut, addr new_line_message
+    .endw
 invoke ExitProcess, 0
 main endp
 
@@ -116,6 +127,10 @@ day_of_week proc, day_var:dword, month_var:dword, year_var:dword, century_var:dw
     ; ([(26 * Mouth - 2) / 10] + Day + Year + [Century / 4] - 2 * C) mod 7
     xor edx, edx
     mov eax, ecx
+    test eax, eax
+    jns not_signed
+    neg eax
+    not_signed:
     mov ecx, 7
     div ecx
     ret

@@ -1,0 +1,9 @@
+input day:
+1
+input month:1
+
+input year:
+1
+input century:1
+
+thursday 

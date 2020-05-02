@@ -1,0 +1,9 @@
+input day:
+4
+input month:
+7
+input year:1210
+
+input century:13
+
+"Программа не работает"
