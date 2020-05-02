@@ -19,14 +19,14 @@ include converter.inc
 
     day dw ?
     month dw ?
-    month_string db 9 dup(?)
+    month_string db 128 dup(?)
     buffer db 128 dup(?)
     year dw ?
     century dw ?
 
     result dd ?
 
-    year_string db 128 dup(0)
+    year_string db 128 dup(?)
 .code
 main proc
     .while eax == eax
